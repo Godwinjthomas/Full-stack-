@@ -17,7 +17,7 @@ files = list()
 
 @shared_task
 def function():
-    k = 0
+
     path = r'C:\Users\godwin\OneDrive\Desktop\Textfiles'
 
     for filename in glob.glob(os.path.join(path, '*.txt')):
@@ -32,13 +32,13 @@ def function():
             else:
                 with open(filename, 'r')as f:
                     name = os.path.basename(filename)
-                    txt = f.readline()
-                    fulltext = f.read()
+                    txt = f.read()
+
                     size = os.path.getsize(filename)
                     modified_date = (datetime.datetime.fromtimestamp(os.path.getmtime(filename)))
                     create_date = (datetime.datetime.fromtimestamp(os.path.getctime(filename)))
 
-                    obj = File(Name=name, f_size=size, content=txt, full_content=fulltext, modified_date=modified_date,
+                    obj = File(Name=name, f_size=size, content=txt, modified_date=modified_date,
                                created_date=create_date, Hashvalue=hash)
                     obj.save()
                 f.close()

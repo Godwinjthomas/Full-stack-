@@ -86,7 +86,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'Textops',
+        'NAME': 'Textops12',
 
         'USER': 'postgres',
 

@@ -17,13 +17,13 @@ def FileApi(request, id=0):
         Fileserializer = FileSerializer(Files, many=True)
         return JsonResponse(Fileserializer.data, safe=False)
     elif request.method == 'PUT':
-        File_data = JSONParser().parse(request)
-        Files = File.objects.get(Fileid=File_data['Fileid'])
-        Fileserializer = FileSerializer(Files, data=File_data)
-        if Fileserializer.is_valid():
-            Fileserializer.save()
-            return JsonResponse("Updated Successfully", safe=False)
-        return JsonResponse("Failed to Update")
+       File_data = JSONParser().parse(request)
+       Files = File.objects.get(Fileid=File_data['Fileid'])
+       Fileserializer = FileSerializer(Files, data=File_data)
+       if Fileserializer.is_valid():
+           Fileserializer.save()
+           return JsonResponse("Updated Successfully", safe=False)
+       return JsonResponse("Failed to Update")
     elif request.method == 'DELETE':
         Files = File.objects.get(Fileid=id)
         Files.delete()

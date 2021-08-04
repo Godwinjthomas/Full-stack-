@@ -57,18 +57,20 @@ const Files={template:`
         <td>{{Text.Name}}</td>
 
         <td>
+           <div style="max-width: 200px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+
              {{Text.content}}
+           </div>
+
+
              <button type ="button"
-             data-bs-toggle="modal"
-             data-bs-target="#exampleModal"
-             @click="display(Text)">
-
-               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-list" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-              </svg>
-
-            </button>
-
+               data-bs-toggle="modal"
+               data-bs-target="#exampleModal"
+               @click="display(Text)">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-list" viewBox="0 0 16 16">
+                   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                 </svg>
+             </button>
         </td>
 
 
@@ -76,19 +78,15 @@ const Files={template:`
         <td>{{Text.created_date}}</td>
         <td>
         <button type ="button"
+
              class="btn btn-light mr-1"
 
              data-bs-dismiss="modal"
 
              @click="pagedisplay(Text.Name,Text.f_size,Text.content,Text.modified_date,Text.created_date)">
-
-
-
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-display-fill" viewBox="0 0 16 16">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-display-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z"/>
-                    </svg>
-
+                 </svg>
         </button>
         <td>
            <button type="button"
@@ -121,13 +119,13 @@ const Files={template:`
     <div class="modal-dialog modal-lg modal-dialog-centered">
 <div class="modal-content" fill="green">
     <div class="modal-header">
-        <h5 class="modal-title"  id="exampleModalLabel">{{content}}</h5>
+        <h5 class="modal-title"  id="exampleModalLabel">{{modalTitle}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"
         aria-label="Close"></button>
     </div>
     <div class="modal-body">
         <div class="input-group mb-3">
-              <h5>{{full_content}}</h5>
+              <h5>{{content}}</h5>
         </div>
 
     </div>
@@ -150,7 +148,7 @@ const Files={template:`
             <div class="input-group mb-3">
                 <span class="input-group-text">Content</span>
 
-                <input type="paragraph-text" class="form-control" v-model="full_content">
+                <input type="paragraph-text" class="form-control" v-model="content">
             </div>
         </div>
 
@@ -164,6 +162,7 @@ const Files={template:`
 </div>
 </div>
 </div>
+ <router-view></router-view>
 </div>
 
 `,
@@ -176,7 +175,7 @@ data(){
         Fileid:0,
         f_size:"",
         content:"",
-        full_content:"",
+
         modified_date:"",
         created_date:"",
         Hashvalue:"",
@@ -196,14 +195,7 @@ methods:{
     display(Text){
         this.modalTitle="content";
         this.content=Text.content;
-        if(Text.full_content == null){
-           this.full_content = Text.content;
-           return full_content;
-        }
-        else{
-           this.full_content=Text.full_content;
-           return full_content;
-        }
+
 
     },
     pagedisplay(Name,f_size,content,modified_date,created_date){
@@ -217,7 +209,6 @@ methods:{
         this.Name=Text.Name;
         this.f_size=Text.f_size;
         this.content=Text.content;
-        this.full_content=Text.full_content;
         this.modified_date=Text.modified_date;
         this.created_date=Text.created_date;
         this.Hashvalue=Text.Hashvalue;
@@ -228,7 +219,6 @@ methods:{
            Name:this.Name,
            f_size:this.f_size,
            content:this.content,
-           full_content:this.full_content,
            modified_date:this.modified_date,
            created_date:this.created_date,
            Hashvalue:this.Hashvalue
